@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
 import sys
-import django
+import django  # type: ignore
 
-from django.test.runner import DiscoverRunner
-from django.conf import settings
+from django.test.runner import DiscoverRunner  # type: ignore
+from django.conf import settings  # type: ignore
 
 
 settings.configure(
