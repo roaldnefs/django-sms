@@ -1,0 +1,7 @@
+include README.Django
+include CHANGELOG.md
+include LICENSE LICENSE.django
+recursive-include docs *
+recursive-include tests *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
