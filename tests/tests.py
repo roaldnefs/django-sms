@@ -25,3 +25,11 @@ class ExampleTests(SimpleTestCase):
             sms.get_connection('sms.backends.dummy.SmsBackend'),
             dummy.SmsBackend
         )
+
+    def test_custom_backend(self) -> None:
+        """Test cutoms backend defined in this suite."""
+        connection = sms.get_connection('tests.custombackend.SmsBackend')
+        self.assertTrue(hasattr(connection, 'test_outbox'))
+        message = Message('Content', '0600000000', '0600000000')
+        connection.send_messages([message])  # type: ignore
+        self.assertEqual(len(connection.test_outbox), 1)  # type: ignore
