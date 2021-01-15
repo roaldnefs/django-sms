@@ -1,9 +1,10 @@
 from typing import List, Type
 from io import StringIO
 
-from django.test import SimpleTestCase  # type: ignore
+from django.test import SimpleTestCase, override_settings  # type: ignore
 
 import sms
+from sms import send_sms
 from sms.backends import dummy, locmem
 from sms.backends.base import BaseSmsBackend
 from sms.message import Message
@@ -37,6 +38,16 @@ class SmsTests(SimpleTestCase):
         message = Message('Content', '0600000000', ['0600000000'])
         connection.send_messages([message])  # type: ignore
         self.assertEqual(len(connection.test_outbox), 1)  # type: ignore
+
+    @override_settings(SMS_BACKEND='sms.backends.locmem.SmsBackend')
+    def test_send_sms(self) -> None:
+        """
+        Test send_sms with the to specified as a string to remain compatibility
+        with django-sms<=0.0.4.
+        """
+        send_sms('Content', '0600000000', '0600000000')
+        self.assertEqual(len(sms.outbox), 1)  # type: ignore
+        self.assertIsInstance(sms.outbox[0].to, list)  # type: ignore
 
 
 class LocmemBackendTests(SimpleTestCase):
