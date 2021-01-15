@@ -24,6 +24,7 @@ setup(
     url="https://github.com/django-enterprise/django-sms",
     description='A Django app for sending SMS with interchangeable backends.',
     long_description=long_description(),
+    long_description_content_type='text/markdown',
     author='Roald Nefs',
     author_email='info@roaldnefs.com',
     license='BSD-3-Clause',
