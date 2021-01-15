@@ -1,4 +1,5 @@
 from typing import List, Type
+from io import StringIO
 
 from django.test import SimpleTestCase  # type: ignore
 
@@ -60,3 +61,21 @@ class LocmemBackendTests(SimpleTestCase):
         for connection in connections:
             connection.send_messages([message])  # type: ignore
         self.assertEqual(len(sms.outbox), 2)  # type: ignore
+
+
+class ConsoleBackendTests(SimpleTestCase):
+    sms_backend: str = 'sms.backends.console.SmsBackend'
+
+    def test_console_stream_kwarg(self) -> None:
+        """
+        The console backend can be pointed at an arbitrary stream.
+        """
+        stream = StringIO()
+        connection = sms.get_connection(
+            'sms.backends.console.SmsBackend',
+            stream=stream
+        )
+        message = Message('Content', '0600000000', ['0600000000'])
+        connection.send_messages([message])  # type: ignore
+        messages = stream.getvalue().split('\n' + ('-' * 79) + '\n')
+        self.assertIn('from: ', messages[0])
