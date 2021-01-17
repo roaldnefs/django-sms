@@ -60,7 +60,7 @@ The return value will be the number of successfully delivered text messages.
 
 ## Examples
 
-This sends a text message to _+44 113 496 0000_ and _'+44 113 496 0999'_:
+This sends a text message to _+44 113 496 0000_ and _+44 113 496 0999_:
 
 ```python
 send_sms(
@@ -153,7 +153,7 @@ django-sms ships with several SMS sending backends. Some of these backends are o
 Instead of sending out real emails the console backend just writes the text messages that would be sent to the standard output. By default, the console backend writes to **stdout**. You can use a different stream-like object by providing the **stream** keyword argument when constructing the connection.
 
 ```python
-SMS_BACKEND = 'sms.backends.console.SmsBackend`
+SMS_BACKEND = 'sms.backends.console.SmsBackend'
 ```
 
 This backend is not intended for use in production - it is provided as a convenience that can be used during development.
@@ -165,7 +165,7 @@ The **'locmen'** backend stores text messages in a special attribute of the **sm
 To specify this backend, put the following in your settings:
 
 ```python
-SMS_BACKEND = 'sms.backends.locmem.SmsBackend`
+SMS_BACKEND = 'sms.backends.locmem.SmsBackend'
 ```
 
 This backend is not intended for use in production - it is provided as a convenience that can be used during development.
@@ -175,7 +175,7 @@ This backend is not intended for use in production - it is provided as a conveni
 As the name suggests the dummy backend does nothing with your text messages. To specify this backend, put the following in your settings:
 
 ```python
-SMS_BACKEND = 'sms.backends.dummy.SmsBackend`
+SMS_BACKEND = 'sms.backends.dummy.SmsBackend'
 ```
 
 This backend is not intended for use in production - it is provided as a convenience that can be used during development.
