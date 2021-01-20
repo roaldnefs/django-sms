@@ -1,8 +1,9 @@
 # Changelog
-
 All notable changes in **django-sms** are documented below.
 
 ## [Unreleased]
+### Added
+- The file backend that writes text messages to a file ([#1](https://github.com/roaldnefs/django-sms/pull/1)).
 
 ## [0.1.0] (2021-01-15)
 ### Added

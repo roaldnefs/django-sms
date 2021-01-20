@@ -25,7 +25,7 @@ class BaseSmsBackend:
     ) -> None:
         self.fail_silently = fail_silently
 
-    def open(self) -> None:
+    def open(self) -> bool:
         """
         Open a network connection.
 
@@ -40,7 +40,7 @@ class BaseSmsBackend:
 
         The default implementation does nothing.
         """
-        pass
+        return True
 
     def close(self) -> None:
         """Close a network connection."""

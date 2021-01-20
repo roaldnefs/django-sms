@@ -10,6 +10,7 @@ from django.conf import settings  # type: ignore
 settings.configure(
     DATABASES={'default': {'ENGINE': 'django.db.backends.sqlite3'}},
     SECRET_KEY="it's a secret to everyone",
+    SMS_BACKEND='sms.backends.locmem.SmsBackend',
 )
 
 
