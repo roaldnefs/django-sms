@@ -16,6 +16,7 @@
     - [SMS backends](#sms-backends)
         - [Obtaining an instance of an SMS backend](#obtaining-an-instance-of-an-sms-backend)
             - [Console backend](#console-backend)
+            - [File backend](#file-backend)
             - [In-memory backend](#in-memory-backend)
             - [Dummy backend](#dummy-backend)
         - [Defining a custom SMS backend](#defining-a-custom-sms-backend)
@@ -150,10 +151,23 @@ django-sms ships with several SMS sending backends. Some of these backends are o
 
 #### Console backend
 
-Instead of sending out real emails the console backend just writes the text messages that would be sent to the standard output. By default, the console backend writes to **stdout**. You can use a different stream-like object by providing the **stream** keyword argument when constructing the connection.
+Instead of sending out real text messages the console backend just writes the text messages that would be sent to the standard output. By default, the console backend writes to **stdout**. You can use a different stream-like object by providing the **stream** keyword argument when constructing the connection.
 
 ```python
 SMS_BACKEND = 'sms.backends.console.SmsBackend'
+```
+
+This backend is not intended for use in production - it is provided as a convenience that can be used during development.
+
+#### File backend
+
+The file backend writes text messages to a file. A new file is created for each session that is opened on this backend. The directory to which the files are written is either taken from the **SMS_FILE_PATH** setting or file the **file_path** keyword when creating a connection with **get_connection()**.
+
+To specify this backend, put the following in your settings:
+
+```python
+SMS_BACKEND = 'sms.backends.filebased.SmsBackend'
+SMS_FILE_PATH = '/tmp/app-messages' # change this to a proper location
 ```
 
 This backend is not intended for use in production - it is provided as a convenience that can be used during development.

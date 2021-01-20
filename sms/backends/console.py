@@ -16,7 +16,7 @@ class SmsBackend(BaseSmsBackend):
         self._lock = threading.RLock()
         super().__init__(*args, **kwargs)
 
-    def write_message(self, message) -> int:
+    def write_message(self, message: Message) -> int:
         msg_count = 0
         for to in message.to:
             msg_data = (
@@ -37,10 +37,13 @@ class SmsBackend(BaseSmsBackend):
             return msg_count
         with self._lock:
             try:
+                stream_created = self.open()
                 for message in messages:
                     count = self.write_message(message)
                     self.stream.flush()  # flush after each message
                     msg_count += count
+                if stream_created:
+                    self.close()
             except Exception:
                 if not self.fail_silently:
                     raise
