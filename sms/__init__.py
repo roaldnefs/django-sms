@@ -33,8 +33,8 @@ def get_connection(
 
 def send_sms(
     body: str = '',
-    from_phone: Optional[str] = None,
-    to: Union[Optional[str], Optional[List[str]]] = None,
+    originator: Optional[str] = None,
+    recipients: Union[Optional[str], Optional[List[str]]] = None,
     fail_silently: bool = False,
     connection: Optional[Type['BaseSmsBackend']] = None
 ) -> int:
@@ -44,12 +44,12 @@ def send_sms(
     Allow to to be a string, to remain compatibility with older
     django-sms<=0.0.4.
 
-    If from_phone is None, use DEFAULT_FROM_SMS setting.
+    If originator is None, use DEFAULT_FROM_SMS setting.
 
     Note: The API for this method is frozen. New code wanting to extend the
     functionality should the the Message class directly.
     """
-    if isinstance(to, str):
-        to = [to]
-    msg = Message(body, from_phone, to, connection=connection)
+    if isinstance(recipients, str):
+        recipients = [recipients]
+    msg = Message(body, originator, recipients, connection=connection)
     return msg.send(fail_silently=fail_silently)

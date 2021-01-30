@@ -45,15 +45,15 @@ The text messages are sent using one of the configured [SMS backends](#sms-backe
 
 ### send_sms()
 
-**send_sms(_body, from_phone, to, fail_silently=False, connection=None_)**
+**send_sms(_body, originator, recipients, fail_silently=False, connection=None_)**
 
 In most cases, you can send text messages using **sms.send_sms()**.
 
-The **message**, **from_phone** and **to** parameters are required.
+The **message**, **originator** and **recipients** parameters are required.
 
 - **message**: A string.
-- **from_phone**: A string. If **None**, django-sms will use the **DEFAULT_FROM_SMS** setting.
-- **to**: A list of strings, each an phone number.
+- **originator**: A string. If **None**, django-sms will use the **DEFAULT_FROM_SMS** setting.
+- **recipients**: A list of strings, each an phone number.
 - **fail_silently**: A boolean. When it's **False**, **send_sms()** will raise an exception if an error occurs. See the [SMS backends](#sms-backends) documentation for a list of possible exceptions.
 - **connection**: The optional SMS backend to use to send the text message. If unspecified, an instance of the default backend will be used. See the documentation of [SMS backends](#sms-backends) for more details.
 
@@ -90,8 +90,8 @@ For convenience, *Message** provides a **send()** method for sending a single te
 The **Message** class is initialized with the following parameters (in the given order, if positional arguments are used). All parameters are optional and can be set at any time prior to calling the **send()** method.
 
 - **body**: The body text. This should be a plain text message.
-- **from_phone**:
-- **to**: A list or tuple of recipient phone numbers.
+- **originator**: The sender of the text message.
+- **recipients**: A list or tuple of recipient phone numbers.
 - **connection**: An SMS backend instance. Use this parameter if you want to use the same connection for multiple text messages. If omitted, a new connection is created when **send()** is called.
 
 For example:

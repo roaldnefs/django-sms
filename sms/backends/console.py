@@ -18,10 +18,10 @@ class SmsBackend(BaseSmsBackend):
 
     def write_message(self, message: Message) -> int:
         msg_count = 0
-        for to in message.to:
+        for recipient in message.recipients:
             msg_data = (
-                f"from: {message.from_phone}\n"
-                f"to: {to}\n"
+                f"from: {message.originator}\n"
+                f"to: {recipient}\n"
                 f"{message.body}"
             )
             self.stream.write(f'{msg_data}\n')
