@@ -2,6 +2,7 @@ from typing import Type, Optional, List, TYPE_CHECKING
 
 from django.conf import settings  # type: ignore
 
+from sms.signals import post_send
 
 if TYPE_CHECKING:
     from sms.backends.base import BaseSmsBackend
@@ -52,4 +53,14 @@ class Message:
             # to send the text message to
             return 0
         connection: Type['BaseSmsBackend'] = self.get_connection(fail_silently)
-        return connection.send_messages([self])  # type: ignore
+        count = connection.send_messages([self])  # type: ignore
+
+        post_send.send(
+            sender=self.__class__,
+            body=self.body,
+            originator=self.originator,
+            recipients=self.recipients,
+            connection=connection
+        )
+
+        return count

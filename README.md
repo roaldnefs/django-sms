@@ -20,6 +20,7 @@
             - [In-memory backend](#in-memory-backend)
             - [Dummy backend](#dummy-backend)
         - [Defining a custom SMS backend](#defining-a-custom-sms-backend)
+    - [Signals](#signals)
 - [Acknowledgement](#acknowledgement)
 
 ## Sending SMS
@@ -199,6 +200,13 @@ This backend is not intended for use in production - it is provided as a conveni
 If you need to change how text messages are sent you can write your own SMS backend. The **SMS_BACKEND** setting in your settings file is then the Python import path for you backend class.
 
 Custom SMS backends should subclass **BaseSmsBackend** that is located in the **sms.backends.base** module. A custom SMS backend must implement the **send_messages(messages)** method. This methods receives a list of **Message** instances and returns the number of successfully delivered messages. If your backend has any concept of a persistent session or connection, you should also implement **open()** and **close()** methods. Refer to one of the existing SMS backends for a reference implementation.
+
+### Signals
+django-sms provides a set of built-in signals that let user code get notified by Django itself of certain actions. These include some useful notifications:
+
+- **sms.signals.post_send**
+
+    Sent after **send()** is called on a **Message** instance.
 
 ## Acknowledgement
 
