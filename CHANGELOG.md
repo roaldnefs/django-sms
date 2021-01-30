@@ -2,6 +2,8 @@
 All notable changes in **django-sms** are documented below.
 
 ## [Unreleased]
+### Added
+- The **sms.signals.post_send** signal to let user code get notified by Django itself after **send()** is called on a **Message** instance.
 
 ## [0.2.0] (2021-01-21)
 ### Added
