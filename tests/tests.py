@@ -6,6 +6,7 @@ import tempfile
 from typing import List, Type, Optional
 from io import StringIO
 
+from django.dispatch import receiver  # type: ignore
 from django.test import SimpleTestCase, override_settings  # type: ignore
 
 import sms
@@ -13,6 +14,7 @@ from sms import send_sms
 from sms.backends import dummy, locmem, filebased
 from sms.backends.base import BaseSmsBackend
 from sms.message import Message
+from sms.signals import post_send
 from sms.utils import message_from_bytes, message_from_binary_file
 
 
@@ -175,3 +177,29 @@ class FileBasedBackendTests(BaseSmsBackendTests, SimpleTestCase):
             message = message_from_binary_file(fp)
         self.assertEqual(message.originator, '+12065550100')
         self.assertEqual(message.recipients, ['+441134960000'])
+
+
+class SignalTests(SimpleTestCase):
+
+    def flush_mailbox(self) -> None:
+        sms.outbox = []  # type: ignore
+
+    def tearDown(self) -> None:
+        super().tearDown()
+        self.flush_mailbox()
+
+    def test_receiver_post_send_signal(self) -> None:
+        """Make sure the post_send signal is called."""
+        @receiver(post_send)
+        def f(body, **kwargs):
+            self.body = body
+            self.state = True
+        self.state = False
+        self.body = None
+
+        body = 'Here is the message'
+        message = Message(body, '+12065550100', ['+441134960000'])
+        message.send()
+
+        self.assertTrue(self.state)
+        self.assertEqual(body, self.body)
