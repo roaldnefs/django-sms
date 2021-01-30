@@ -12,21 +12,23 @@ class Message:
     def __init__(
         self,
         body: str = '',
-        from_phone: Optional[str] = None,
-        to: Optional[List[str]] = None,
+        originator: Optional[str] = None,
+        recipients: Optional[List[str]] = None,
         connection: Optional[Type['BaseSmsBackend']] = None
     ) -> None:
         """
         Initialize a single text message (which can be sent to multiple
         recipients).
         """
-        if to:
-            if isinstance(to, str):
-                raise TypeError('"to" argument must be a list or tuple')
-            self.to = list(to)
+        if recipients:
+            if isinstance(recipients, str):
+                raise TypeError(
+                    '"recipients" argument must be a list or tuple'
+                )
+            self.recipients = recipients
         else:
-            self.to = []
-        self.from_phone = from_phone or getattr(
+            self.recipients = []
+        self.originator = originator or getattr(
             settings, 'DEFAULT_FROM_SMS', ''
         )
         self.body = body or ''
@@ -45,7 +47,7 @@ class Message:
         """
         Send the text messages return and the number of messages sent.
         """
-        if not self.to:
+        if not self.recipients:
             # Don't brother creating the network connection if there's nobody
             # to send the text message to
             return 0

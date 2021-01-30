@@ -80,12 +80,12 @@ class SmsTests(SimpleTestCase):
     @override_settings(SMS_BACKEND='sms.backends.locmem.SmsBackend')
     def test_send_sms(self) -> None:
         """
-        Test send_sms with the to specified as a string to remain compatibility
-        with django-sms<=0.0.4.
+        Test send_sms with the recipients specified as a string to remain
+        compatibility with django-sms<=0.0.4.
         """
         send_sms('Content', '0600000000', '0600000000')
         self.assertEqual(len(sms.outbox), 1)  # type: ignore
-        self.assertIsInstance(sms.outbox[0].to, list)  # type: ignore
+        self.assertIsInstance(sms.outbox[0].recipients, list)  # type: ignore
 
 
 class LocmemBackendTests(BaseSmsBackendTests, SimpleTestCase):
@@ -173,5 +173,5 @@ class FileBasedBackendTests(BaseSmsBackendTests, SimpleTestCase):
         tmp_file = os.path.join(self.tmp_dir, os.listdir(self.tmp_dir)[0])
         with open(tmp_file, 'rb') as fp:
             message = message_from_binary_file(fp)
-        self.assertEqual(message.from_phone, '+12065550100')
-        self.assertEqual(message.to, ['+441134960000'])
+        self.assertEqual(message.originator, '+12065550100')
+        self.assertEqual(message.recipients, ['+441134960000'])
