@@ -1,7 +1,7 @@
 project = 'django-sms'
 copyright = '2021, Roald Nefs'
 author = 'Roald Nefs'
-release = '0.2.0'
+release = '0.3.0'
 
 extensions = ['m2r2']
 templates_path = ['_templates']

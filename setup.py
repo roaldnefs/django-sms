@@ -20,7 +20,7 @@ def long_description() -> str:
 
 setup(
     name='django-sms',
-    version='0.2.0',
+    version='0.3.0',
     url="https://github.com/django-enterprise/django-sms",
     description='A Django app for sending SMS with interchangeable backends.',
     long_description=long_description(),
