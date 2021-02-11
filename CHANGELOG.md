@@ -2,6 +2,8 @@
 All notable changes in **django-sms** are documented below.
 
 ## [Unreleased]
+### Changed
+- Simplified the attributes of the **sms.signals.post_send** signal to include the instance of the originating **Message** instead of all attributes ([#11](https://github.com/roaldnefs/django-sms/pull/11)).
 
 ## [0.3.0] (2021-01-30)
 ### Added
