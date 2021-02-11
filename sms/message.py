@@ -55,12 +55,6 @@ class Message:
         connection: Type['BaseSmsBackend'] = self.get_connection(fail_silently)
         count = connection.send_messages([self])  # type: ignore
 
-        post_send.send(
-            sender=self.__class__,
-            body=self.body,
-            originator=self.originator,
-            recipients=self.recipients,
-            connection=connection
-        )
+        post_send.send(sender=self.__class__, instance=self)
 
         return count
