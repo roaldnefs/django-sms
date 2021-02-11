@@ -191,8 +191,8 @@ class SignalTests(SimpleTestCase):
     def test_receiver_post_send_signal(self) -> None:
         """Make sure the post_send signal is called."""
         @receiver(post_send)
-        def f(body, **kwargs):
-            self.body = body
+        def f(instance, **kwargs):
+            self.body = instance.body
             self.state = True
         self.state = False
         self.body = None
