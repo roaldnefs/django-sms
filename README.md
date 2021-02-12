@@ -1,5 +1,4 @@
 # Django SMS
-
 [![PyPI](https://img.shields.io/pypi/v/django-sms?color=156741&logo=python&logoColor=ffffff&style=for-the-badge)](https://pypi.org/project/django-sms/)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/roaldnefs/django-sms/tests?color=156741&label=CI&logo=github&style=for-the-badge)](https://github.com/roaldnefs/django-sms/actions)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-sms?color=156741&logo=python&logoColor=white&style=for-the-badge)](https://pypi.org/project/django-sms/)
@@ -21,14 +20,13 @@
             - [Dummy backend](#dummy-backend)
         - [Defining a custom SMS backend](#defining-a-custom-sms-backend)
     - [Signals](#signals)
+        - [sms.signals.post_send](#sms.signals.post_send)
 - [Acknowledgement](#acknowledgement)
 
 ## Sending SMS
-
 These wrappers are provided to make sending SMS extra quick, to help test SMS sending during development, and to provide additional SMS gateways.
 
 ### Quick example
-
 In two lines:
 
 ```python
@@ -45,7 +43,6 @@ send_sms(
 The text messages are sent using one of the configured [SMS backends](#sms-backends).
 
 ### send_sms()
-
 **send_sms(_body, originator, recipients, fail_silently=False, connection=None_)**
 
 In most cases, you can send text messages using **sms.send_sms()**.
@@ -61,7 +58,6 @@ The **message**, **originator** and **recipients** parameters are required.
 The return value will be the number of successfully delivered text messages.
 
 ## Examples
-
 This sends a text message to _+44 113 496 0000_ and _+44 113 496 0999_:
 
 ```python
@@ -73,7 +69,6 @@ send_sms(
 ```
 
 ### The **Message** class
-
 django-sms' **send_sms()** function is  actually a thin wrapper that makes use of the **Message** class.
 
 Not all features of the **Message** class will be available though the **send_sms()** and related wrapper functions. If you wish to use advanced features, you'll need to create **Message** instances directly.
@@ -85,7 +80,6 @@ Not all features of the **Message** class will be available though the **send_sm
 For convenience, *Message** provides a **send()** method for sending a single text message. If you need to send multiple text messages, the SMS backend API provides alternatives.
 
 #### Message Objects
-
 **_class_ Message**
 
 The **Message** class is initialized with the following parameters (in the given order, if positional arguments are used). All parameters are optional and can be set at any time prior to calling the **send()** method.
@@ -112,7 +106,6 @@ The class has the following methods:
 - **send(fail_silently=False)** sends the text message. If a connection was specified when the text message was constructed, that connection will be used. Otherwise, an instance of the default backend will be instantiated and used. If the keyword argument **fail_silently** is **True**, exceptions raised while sending the text messages will be quashed. An empty list of recipients will not raise an exception.
 
 ### SMS backends
-
 The actual sending of an SMS is handled by the SMS backend.
 
 The SMS backend class has the following methods:
@@ -137,7 +130,6 @@ with sms.get_connection() as connection:
 ```
 
 ### Obtaining an instance of an SMS backend
-
 The **sms.get_connection()** function in **sms** returns an instance of the SMS backend that you can use.
 
 **get_connection(_backend=None, fail_silently=False, *args, **kwargs_)**
@@ -151,7 +143,6 @@ All other arguments are passed directly to the constructor of the SMS backend.
 django-sms ships with several SMS sending backends. Some of these backends are only useful during testing and development. If you have special SMS sending requirements, you can [write your own SMS backend](#defining-a-custom-sms-backend).
 
 #### Console backend
-
 Instead of sending out real text messages the console backend just writes the text messages that would be sent to the standard output. By default, the console backend writes to **stdout**. You can use a different stream-like object by providing the **stream** keyword argument when constructing the connection.
 
 ```python
@@ -161,7 +152,6 @@ SMS_BACKEND = 'sms.backends.console.SmsBackend'
 This backend is not intended for use in production - it is provided as a convenience that can be used during development.
 
 #### File backend
-
 The file backend writes text messages to a file. A new file is created for each session that is opened on this backend. The directory to which the files are written is either taken from the **SMS_FILE_PATH** setting or file the **file_path** keyword when creating a connection with **get_connection()**.
 
 To specify this backend, put the following in your settings:
@@ -174,7 +164,6 @@ SMS_FILE_PATH = '/tmp/app-messages' # change this to a proper location
 This backend is not intended for use in production - it is provided as a convenience that can be used during development.
 
 #### In-memory backend
-
 The **'locmen'** backend stores text messages in a special attribute of the **sms** module. The **outbox** attribute is created when the first message is sent. It's a list with an **Message** instance of each text message that would be sent.
 
 To specify this backend, put the following in your settings:
@@ -186,7 +175,6 @@ SMS_BACKEND = 'sms.backends.locmem.SmsBackend'
 This backend is not intended for use in production - it is provided as a convenience that can be used during development.
 
 #### Dummy backend
-
 As the name suggests the dummy backend does nothing with your text messages. To specify this backend, put the following in your settings:
 
 ```python
@@ -196,18 +184,18 @@ SMS_BACKEND = 'sms.backends.dummy.SmsBackend'
 This backend is not intended for use in production - it is provided as a convenience that can be used during development.
 
 ### Defining a custom SMS backend
-
 If you need to change how text messages are sent you can write your own SMS backend. The **SMS_BACKEND** setting in your settings file is then the Python import path for you backend class.
 
 Custom SMS backends should subclass **BaseSmsBackend** that is located in the **sms.backends.base** module. A custom SMS backend must implement the **send_messages(messages)** method. This methods receives a list of **Message** instances and returns the number of successfully delivered messages. If your backend has any concept of a persistent session or connection, you should also implement **open()** and **close()** methods. Refer to one of the existing SMS backends for a reference implementation.
 
 ### Signals
-django-sms provides a set of built-in signals that let user code get notified by Django itself of certain actions. These include some useful notifications:
+**django-sms** provides a set of built-in signals that let user code get notified by Django itself of certain actions. These include some useful notifications:
 
-- **sms.signals.post_send**
+#### **sms.signals.post_send**
+Sent after **send()** is called on a **Message** instance. Arguments sent with this signal:
 
-    Sent after **send()** is called on a **Message** instance.
+- **sender**: The **Message** class.
+- **instance**: The actual **Message** instance being send.
 
 ## Acknowledgement
-
 This project is heavily based upon the **django.core.mail** module, with the modified work by [Roald Nefs](https://github.com/roaldnefs). The [Django license](https://raw.githubusercontent.com/roaldnefs/django-sms/main/LICENSE.django) is included with **django-sms**.
