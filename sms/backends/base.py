@@ -18,11 +18,7 @@ class BaseSmsBackend:
             # do something with connection
             pass
     """
-    def __init__(
-        self,
-        fail_silently: bool = False,
-        **kwargs
-    ) -> None:
+    def __init__(self, fail_silently: bool = False, **kwargs) -> None:
         self.fail_silently = fail_silently
 
     def open(self) -> bool:
