@@ -18,6 +18,7 @@
             - [File backend](#file-backend)
             - [In-memory backend](#in-memory-backend)
             - [Dummy backend](#dummy-backend)
+            - [MessageBird backend](#messagebird-backend)
         - [Defining a custom SMS backend](#defining-a-custom-sms-backend)
     - [Signals](#signals)
         - [sms.signals.post_send](#sms.signals.post_send)
@@ -182,6 +183,20 @@ SMS_BACKEND = 'sms.backends.dummy.SmsBackend'
 ```
 
 This backend is not intended for use in production - it is provided as a convenience that can be used during development.
+
+#### MessageBird backend
+The [MessageBird](https://messagebird.com/) backend sends text messages using the [MessageBird SMS API](https://developers.messagebird.com/api/sms-messaging/#send-outbound-sms). To specify this backend, put the following in your settings:
+
+```python
+SMS_BACKEND = 'sms.backends.messagebird.SmsBackend'
+MESSAGEBIRD_ACCESS_KEY = 'live_redacted-messagebird-access-key'
+```
+
+Make sure the MessageBird Python SDK is installed by running the following command:
+
+```console
+pip install "django-sms[messagebird]"
+```
 
 ### Defining a custom SMS backend
 If you need to change how text messages are sent you can write your own SMS backend. The **SMS_BACKEND** setting in your settings file is then the Python import path for you backend class.

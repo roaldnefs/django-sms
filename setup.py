@@ -51,5 +51,8 @@ setup(
     packages=find_packages(exclude=['tests', 'tests.*']),
     include_package_data=True,
     test_suite='tests.runtests.main',
-    install_requires=['Django>=2.2']
+    install_requires=['Django>=2.2'],
+    extras_require={
+        'messagebird': ['messagebird'],
+    }
 )

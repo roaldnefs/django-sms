@@ -2,6 +2,9 @@
 All notable changes in **django-sms** are documented below.
 
 ## [Unreleased]
+### Added
+- The **sms.backends.messagebird.SmsBackend** to send text messages using [MessageBird](https://messagebird.com/) ([#6](https://github.com/roaldnefs/django-sms/issues/6)).
+
 ### Changed
 - Simplified the attributes of the **sms.signals.post_send** signal to include the instance of the originating **Message** instead of all attributes ([#11](https://github.com/roaldnefs/django-sms/pull/11)).
 
