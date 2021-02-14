@@ -14,13 +14,13 @@ def long_description() -> str:
 
     with open('CHANGELOG.md') as changelog_file:
         changelog = changelog_file.read()
-    
+
     return readme + changelog
 
 
 setup(
     name='django-sms',
-    version='0.3.0',
+    version='0.4.0',
     url="https://github.com/django-enterprise/django-sms",
     description='A Django app for sending SMS with interchangeable backends.',
     long_description=long_description(),

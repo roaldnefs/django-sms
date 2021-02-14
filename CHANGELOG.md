@@ -2,6 +2,8 @@
 All notable changes in **django-sms** are documented below.
 
 ## [Unreleased]
+
+## [0.4.0]
 ### Added
 - The **sms.backends.messagebird.SmsBackend** to send text messages using [MessageBird](https://messagebird.com/) ([#6](https://github.com/roaldnefs/django-sms/issues/6)).
 
@@ -20,7 +22,8 @@ All notable changes in **django-sms** are documented below.
 ### Added
 - This `CHANGELOG.md` file to be able to list all notable changes for each version of **django-sms**.
 
-[Unreleased]: https://github.com/roaldnefs/django-sms/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/roaldnefs/django-sms/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/roaldnefs/django-sms/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/roaldnefs/django-sms/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/roaldnefs/django-sms/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/roaldnefs/django-sms/releases/tag/v0.1.0
