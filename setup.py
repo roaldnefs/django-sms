@@ -54,5 +54,6 @@ setup(
     install_requires=['Django>=2.2'],
     extras_require={
         'messagebird': ['messagebird'],
+        'twilio': ['twilio'],
     }
 )

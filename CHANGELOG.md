@@ -2,6 +2,8 @@
 All notable changes in **django-sms** are documented below.
 
 ## [Unreleased]
+### Added
+- The **sms.backends.twilio.SmsBackend** to send text messages using [Twilio](https://twilio.com/) ([#7](https://github.com/roaldnefs/django-sms/issues/7)).
 
 ## [0.4.0]
 ### Added
