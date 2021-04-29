@@ -211,6 +211,26 @@ class MessageBirdBackendTests(BaseSmsBackendTests, SimpleTestCase):
             ['+441134960000'],
             'Here is the message'
         )
+        self.assertEqual(connection.client.access_key, 'fake_access_key')  # type: ignore
+
+    def test_send_messages_explicit_backend(self) -> None:
+        """Test send_messages with the MessageBird backend with explicit parameters."""
+        with sms.get_connection(  # type: ignore
+            access_key='another_access_key',
+        ) as connection:
+            connection.client.message_create = MagicMock()  # type: ignore
+            message = Message(
+                'Here is the message',
+                '+12065550100',
+                ['+441134960000'],
+                connection=connection
+            ).send()
+            connection.client.message_create.assert_called_with(  # type: ignore
+                '+12065550100',
+                ['+441134960000'],
+                'Here is the message'
+            )
+            self.assertEqual(connection.client.access_key, 'another_access_key')  # type: ignore
 
 
 class TwilioBackendTests(BaseSmsBackendTests, SimpleTestCase):
@@ -244,6 +264,29 @@ class TwilioBackendTests(BaseSmsBackendTests, SimpleTestCase):
             from_='+12065550100',
             body='Here is the message'
         )
+        self.assertEqual(connection.client.username, 'fake_account_sid')  # type: ignore
+        self.assertEqual(connection.client.password, 'fake_auth_token')  # type: ignore
+
+    def test_send_messages_explicit_backend(self) -> None:
+        """Test send_messages with the Twilio backend with explicit parameters."""
+        with sms.get_connection(  # type: ignore
+            username='another_account_sid',
+            password='another_auth_token',
+        ) as connection:
+            connection.client.messages.create = MagicMock()  # type: ignore
+            message = Message(
+                'Here is the message',
+                '+12065550100',
+                ['+441134960000'],
+                connection=connection
+            ).send()
+            connection.client.messages.create.assert_called_with(  # type: ignore
+                to='+441134960000',
+                from_='+12065550100',
+                body='Here is the message'
+            )
+            self.assertEqual(connection.client.username, 'another_account_sid')  # type: ignore
+            self.assertEqual(connection.client.password, 'another_auth_token')  # type: ignore
 
 
 class SignalTests(SimpleTestCase):

@@ -193,6 +193,8 @@ SMS_BACKEND = 'sms.backends.messagebird.SmsBackend'
 MESSAGEBIRD_ACCESS_KEY = 'live_redacted-messagebird-access-key'
 ```
 
+The `access_key` (overriding `MESSAGEBIRD_ACCESS_KEY`) and other optional backend keyword parameters transferred from the `get_connection()` call are passed to the `messagebird.Client` constructor.
+
 Make sure the MessageBird Python SDK is installed by running the following command:
 
 ```console
@@ -207,6 +209,8 @@ SMS_BACKEND = 'sms.backends.twilio.SmsBackend'
 TWILIO_ACCOUNT_SID = 'live_redacted-twilio-account-sid'
 TWILIO_AUTH_TOKEN = 'live_redacted-twilio-auth-token'
 ```
+
+The `username` and `password` (overriding `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN`) and other optional backend keyword parameters transferred from the `get_connection()` call are passed to the `twilio.rest.Client` constructor.
 
 Make sure the Twilio Python SDK is installed by running the following command:
 
