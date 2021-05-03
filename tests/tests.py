@@ -246,6 +246,38 @@ class TwilioBackendTests(BaseSmsBackendTests, SimpleTestCase):
         )
 
 
+class SMSApiBackendTests(BaseSmsBackendTests, SimpleTestCase):
+    sms_backend = 'sms.backends.smsapi.SmsBackend'
+
+    def setUp(self) -> None:
+        super().setUp()
+        self._settings_override = override_settings(
+            SMSAPI_TOKEN='fake_access_token'
+        )
+        self._settings_override.enable()
+
+    def tearDown(self) -> None:
+        self._settings_override.disable()
+        super().tearDown()
+
+    def test_send_messages(self) -> None:
+        """Test send_messages with the SMSAPI backend."""
+        message = Message(
+            'Here is the message',
+            '+12065550100',
+            ['+441134960000']
+        )
+
+        connection = sms.get_connection()
+        connection.client.message_create = MagicMock()  # type: ignore
+        connection.send_messages([message])  # type: ignore
+        connection.client.message_create.assert_called_with(  # type: ignore
+            '+12065550100',
+            ['+441134960000'],
+            'Here is the message'
+        )
+
+        
 class SignalTests(SimpleTestCase):
 
     def flush_mailbox(self) -> None:
