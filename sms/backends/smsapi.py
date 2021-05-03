@@ -51,7 +51,7 @@ class SmsBackend(BaseSmsBackend):
         for message in messages:
             for recipient in message.recipients:
                 try:
-                    self.client.sms.send(
+                    message.send_results = self.client.sms.send(
                         to=recipient,
                         message=message.body
                     )
