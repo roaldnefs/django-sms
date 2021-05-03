@@ -269,12 +269,11 @@ class SMSApiBackendTests(BaseSmsBackendTests, SimpleTestCase):
         )
 
         connection = sms.get_connection()
-        connection.client.message_create = MagicMock()  # type: ignore
+        connection.client.sms.send = MagicMock()  # type: ignore
         connection.send_messages([message])  # type: ignore
-        connection.client.message_create.assert_called_with(  # type: ignore
-            '+12065550100',
-            ['+441134960000'],
-            'Here is the message'
+        connection.client.sms.send.assert_called_with(  # type: ignore
+            to='+441134960000',
+            message='Here is the message'
         )
 
         
