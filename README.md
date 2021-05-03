@@ -20,7 +20,7 @@
             - [Dummy backend](#dummy-backend)
             - [MessageBird backend](#messagebird-backend)
             - [Twilio backend](#twilio-backend)
-            - [SMSAPI.pl backend](#smsapi.pl-backend)
+            - [SMSAPI.pl backend](#smsapipl-backend)
         - [Defining a custom SMS backend](#defining-a-custom-sms-backend)
     - [Signals](#signals)
         - [sms.signals.post_send](#sms.signals.post_send)
