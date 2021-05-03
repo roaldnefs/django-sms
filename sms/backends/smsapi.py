@@ -27,7 +27,7 @@ class SmsBackend(BaseSmsBackend):
             raise ImproperlyConfigured(
                 "You're using the SMS backend "
                 "'sms.backends.smsapi.SmsBackend' without having "
-                "'smsapi' installed. Install 'smsapi' or use "
+                "'smsapi-client' installed. Install 'smsapi-client' or use "
                 "another SMS backend."
             )
 
