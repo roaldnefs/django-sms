@@ -276,7 +276,7 @@ class SMSApiBackendTests(BaseSmsBackendTests, SimpleTestCase):
             message='Here is the message'
         )
 
-        
+
 class SignalTests(SimpleTestCase):
 
     def flush_mailbox(self) -> None:
