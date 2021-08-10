@@ -44,14 +44,6 @@ Install package
         
     pipenv install django-sms
     
-Add `django-sms` app to INSTALLED_APPS in your django settings.py:
-
-```python
-INSTALLED_APPS = (
-    ...,
-    'django-sms'
-)
-```
 
 ### Quick example
 In two lines:
