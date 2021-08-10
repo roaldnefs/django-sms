@@ -7,6 +7,8 @@
 **django-sms** is a Django app for sending SMS with interchangeable backends. The module is heavily based upon and structured the same way as the `django.core.mail` module.
 
 - [Sending SMS](#sending-sms)
+    - [Requirements](#requirements)
+    - [Quick Setup](#quick-setup)
     - [Quick example](#quick-example)
     - [send_sms()](#send_sms)
     - [Examples](#examples)
@@ -27,6 +29,29 @@
 
 ## Sending SMS
 These wrappers are provided to make sending SMS extra quick, to help test SMS sending during development, and to provide additional SMS gateways.
+
+## Requirements
+- Django 2 or 3
+- Python 3
+
+## Quick Setup
+
+Install package
+
+    pip install django-sms
+    
+            or 
+        
+    pipenv install django-sms
+    
+Add `django-sms` app to INSTALLED_APPS in your django settings.py:
+
+```python
+INSTALLED_APPS = (
+    ...,
+    'django-sms'
+)
+```
 
 ### Quick example
 In two lines:
