@@ -20,6 +20,7 @@
             - [Dummy backend](#dummy-backend)
             - [MessageBird backend](#messagebird-backend)
             - [Twilio backend](#twilio-backend)
+            - [sms77 backend](#sms77-backend)
         - [Defining a custom SMS backend](#defining-a-custom-sms-backend)
     - [Signals](#signals)
         - [sms.signals.post_send](#sms.signals.post_send)
@@ -212,6 +213,15 @@ Make sure the Twilio Python SDK is installed by running the following command:
 
 ```console
 pip install "django-sms[twilio]"
+```
+
+
+#### sms77 backend
+The [sms77](https://sms77.io/) backend sends text messages using the [sms77 SMS API](https://www.sms77.io/en/docs/gateway/http-api/sms-dispatch/). To specify this backend, put the following in your settings:
+
+```python
+SMS_BACKEND = 'sms.backends.sms77.SmsBackend'
+SMS77_API_KEY = 'live_redacted-sms77-api-key'
 ```
 
 ### Defining a custom SMS backend

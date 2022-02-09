@@ -56,5 +56,6 @@ setup(
     extras_require={
         'messagebird': ['messagebird'],
         'twilio': ['twilio'],
+        'sms77api': ['sms77api'],
     }
 )

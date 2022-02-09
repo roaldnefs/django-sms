@@ -2,6 +2,8 @@
 All notable changes in **django-sms** are documented below.
 
 ## [Unreleased]
+### Added
+- The **sms.backends.sms77.SmsBackend** to send text messages using [sms77](https://sms77.io/).
 ### Changed
 - Add support for Django 3.2.
 
