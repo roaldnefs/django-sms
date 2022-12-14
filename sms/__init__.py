@@ -1,7 +1,7 @@
 """
 Tools for sending text messages.
 """
-from typing import Type, Union, List, Optional
+from typing import List, Optional, Type, Union
 
 from django.conf import settings  # type: ignore
 from django.utils.module_loading import import_string  # type: ignore
@@ -9,14 +9,13 @@ from django.utils.module_loading import import_string  # type: ignore
 from sms.backends.base import BaseSmsBackend
 from sms.message import Message
 
-
 __all__ = [
     'Message', 'get_connection', 'send_sms'
 ]
 
 
 def get_connection(
-    backend: str = None,
+    backend: Optional[str] = None,
     fail_silently: bool = False,
     **kwargs
 ) -> Type[BaseSmsBackend]:

@@ -3,7 +3,6 @@ SMS backend that writes messages to a file.
 """
 import datetime
 import os
-
 from typing import Optional
 
 from django.conf import settings  # type: ignore
@@ -14,6 +13,8 @@ from sms.message import Message
 
 
 class SmsBackend(BaseSmsBackend):
+    file_path: str
+
     def __init__(
         self,
         *args,
@@ -21,11 +22,15 @@ class SmsBackend(BaseSmsBackend):
         **kwargs
     ) -> None:
         self._fname: Optional[str] = None
-        if file_path is not None:
-            self.file_path = file_path
-        else:
-            self.file_path = getattr(settings, 'SMS_FILE_PATH', None)
-        self.file_path = os.path.abspath(self.file_path)
+        if not file_path:
+            file_path = getattr(settings, 'SMS_FILE_PATH', None)
+        if not file_path:
+            raise ImproperlyConfigured((
+                'Missin path for saving text messages'
+            ))
+        self.file_path = file_path
+
+        self.file_path: str = os.path.abspath(self.file_path)
         try:
             os.makedirs(self.file_path, exist_ok=True)
         except FileExistsError:
