@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 
 def long_description() -> str:
@@ -48,6 +48,7 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
     ],
     packages=find_packages(exclude=['tests', 'tests.*']),
     include_package_data=True,
