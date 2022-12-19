@@ -1,6 +1,6 @@
 # Django SMS
 [![PyPI](https://img.shields.io/pypi/v/django-sms?color=156741&logo=python&logoColor=ffffff&style=for-the-badge)](https://pypi.org/project/django-sms/)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/roaldnefs/django-sms/tests?color=156741&label=CI&logo=github&style=for-the-badge)](https://github.com/roaldnefs/django-sms/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/roaldnefs/django-sms/tests.yml?branch=main&color=156741&label=CI&logo=github&style=for-the-badge)](https://github.com/roaldnefs/django-sms/actions)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-sms?color=156741&logo=python&logoColor=white&style=for-the-badge)](https://pypi.org/project/django-sms/)
 [![PyPI - Django Version](https://img.shields.io/pypi/djversions/django-sms?color=156741&logo=django&logoColor=ffffff&style=for-the-badge)](https://pypi.org/project/django-sms/)
 
