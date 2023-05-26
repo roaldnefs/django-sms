@@ -2,6 +2,8 @@
 All notable changes in **django-sms** are documented below.
 
 ## [Unreleased]
+### Added
+- The **sms.backends.aws.SmsBackend** to send messages using [AWS SNS](https://aws.amazon.com/sns/).
 
 ## [0.6.0]
 ### Changed

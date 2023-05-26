@@ -59,5 +59,6 @@ setup(
     extras_require={
         'messagebird': ['messagebird'],
         'twilio': ['twilio'],
+        'aws': ['boto3'],
     }
 )

@@ -246,6 +246,53 @@ class TwilioBackendTests(BaseSmsBackendTests, SimpleTestCase):
         )
 
 
+class AwsBackendTests(BaseSmsBackendTests, SimpleTestCase):
+    sms_backend = 'sms.backends.aws.SmsBackend'
+
+    def setUp(self) -> None:
+        super().setUp()
+        self._settings_override = override_settings(
+            AWS_SNS_REGION='us-moon-3',
+            AWS_SNS_ACCESS_KEY_ID='AKIAFAKEACCESSKEYID',
+            AWS_SNS_SECRET_ACCESS_KEY='fake_secret_access_key',
+        )
+        self._settings_override.enable()
+
+    def tearDown(self) -> None:
+        self._settings_override.disable()
+        super().tearDown()
+
+    def test_send_messages(self) -> None:
+        """Test send_messages with the Twilio backend."""
+        message = Message(
+            'Here is the message',
+            '+12065550100',
+            ['+441134960000']
+        )
+
+        connection = sms.get_connection()
+        connection.sns_resource.meta.client.publish = MagicMock()  # type: ignore
+        connection.send_messages([message])  # type: ignore
+        connection.sns_resource.meta.client.publish.assert_called_with(  # type: ignore
+            PhoneNumber='+441134960000',
+            Message='Here is the message',
+            MessageAttributes={
+                "AWS.SNS.SMS.SenderID": {
+                    "DataType": "String",
+                    "StringValue": "django-sms",
+                },
+                "AWS.SNS.SMS.SMSType": {
+                    "DataType": "String",
+                    "StringValue": "Promotional",
+                },
+                "AWS.MM.SMS.OriginationNumber": {
+                    "DataType": "String",
+                    "StringValue": '+12065550100',
+                },
+            },
+        )
+
+
 class SignalTests(SimpleTestCase):
 
     def flush_mailbox(self) -> None:

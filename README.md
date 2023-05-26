@@ -20,6 +20,7 @@
             - [Dummy backend](#dummy-backend)
             - [MessageBird backend](#messagebird-backend)
             - [Twilio backend](#twilio-backend)
+            - [AWS SNS backend](#aws-sns-backend)
         - [Defining a custom SMS backend](#defining-a-custom-sms-backend)
     - [Signals](#signals)
         - [sms.signals.post_send](#sms.signals.post_send)
@@ -212,6 +213,23 @@ Make sure the Twilio Python SDK is installed by running the following command:
 
 ```console
 pip install "django-sms[twilio]"
+```
+#### AWS SNS backend
+The [AWS SNS](https://docs.aws.amazon.com/sns/latest/dg/sms_publish-to-phone.html#sms_publish_sdk) backend sends messages using `boto3`. To use this backend add the following settings:
+
+```python
+SMS_BACKEND = 'sms.backends.aws.SmsBackend'
+AWS_SNS_REGION = 'your aws region code'
+AWS_SNS_ACCESS_KEY_ID = 'your access key ID'
+AWS_SNS_SECRET_ACCESS_KEY = 'your access key'
+AWS_SNS_SENDER_ID = '1-11 character identifier for your service'
+AWS_SNS_SMS_TYPE = 'Transactional' | 'Promotional'
+```
+
+Make sure `boto3` is installed by running the following command:
+
+```console
+pip install "django-sms[aws]"
 ```
 
 ### Defining a custom SMS backend
