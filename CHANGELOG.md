@@ -2,6 +2,8 @@
 All notable changes in **django-sms** are documented below.
 
 ## [Unreleased]
+
+## [0.7.0]
 ### Changed
 - Add support for Django 4.2 and 5.0.
 - Add support for Python 3.12.
@@ -41,7 +43,8 @@ All notable changes in **django-sms** are documented below.
 ### Added
 - This `CHANGELOG.md` file to be able to list all notable changes for each version of **django-sms**.
 
-[Unreleased]: https://github.com/roaldnefs/django-sms/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/roaldnefs/django-sms/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/roaldnefs/django-sms/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/roaldnefs/django-sms/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/roaldnefs/django-sms/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/roaldnefs/django-sms/compare/v0.3.0...v0.4.0
