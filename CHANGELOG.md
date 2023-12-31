@@ -2,6 +2,13 @@
 All notable changes in **django-sms** are documented below.
 
 ## [Unreleased]
+### Changed
+- Add support for Django 4.2 and 5.0.
+- Add support for Python 3.12.
+
+### Deprecated
+- Drop support for Django 2.2, 3.1 and 4.0.
+- Drop support for Python 3.6 and 3.7.
 
 ## [0.6.0]
 ### Changed
