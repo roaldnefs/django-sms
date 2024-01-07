@@ -1,4 +1,4 @@
-include README.Django
+include README.md
 include CHANGELOG.md
 include LICENSE LICENSE.django
 recursive-include docs *
