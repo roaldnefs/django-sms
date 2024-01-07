@@ -222,7 +222,7 @@ Custom SMS backends should subclass **BaseSmsBackend** that is located in the **
 ### Signals
 **django-sms** provides a set of built-in signals that let user code get notified by Django itself of certain actions. These include some useful notifications:
 
-#### **sms.signals.post_send**
+#### <a name="sms.signals.post_send"></a>**sms.signals.post_send**
 Sent after **send()** is called on a **Message** instance. Arguments sent with this signal:
 
 - **sender**: The **Message** class.

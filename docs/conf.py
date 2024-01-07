@@ -3,11 +3,12 @@ copyright = '2023, Roald Nefs'
 author = 'Roald Nefs'
 release = '0.7.0'
 
-extensions = ['m2r2']
+extensions = ['myst_parser']
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 source_suffix = ['.rst', '.md']
 
+myst_heading_anchors = 6
 html_theme = 'alabaster'
 html_theme_options = {
     "description": "A Django app for sending SMS with interchangeable backends.",
