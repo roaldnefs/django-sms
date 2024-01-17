@@ -28,7 +28,9 @@ class SmsBackend(BaseSmsBackend):
                 "another SMS backend."
             )
 
-        access_key: Optional[str] = getattr(settings, 'MESSAGEBIRD_ACCESS_KEY')
+        access_key: Optional[str] = kwargs.pop(
+            'access_key', getattr(settings, 'MESSAGEBIRD_ACCESS_KEY')
+        )
         if not access_key and not self.fail_silently:
             raise ImproperlyConfigured(
                 "You're using the SMS backend "
@@ -38,7 +40,7 @@ class SmsBackend(BaseSmsBackend):
 
         self.client = None
         if HAS_MESSAGEBIRD:
-            self.client = messagebird.Client(access_key)
+            self.client = messagebird.Client(access_key, **kwargs)
 
     def send_messages(self, messages: List[Message]) -> int:
         if not self.client:

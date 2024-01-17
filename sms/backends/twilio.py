@@ -28,7 +28,9 @@ class SmsBackend(BaseSmsBackend):
                 "another SMS backend."
             )
 
-        account_sid: Optional[str] = getattr(settings, 'TWILIO_ACCOUNT_SID')
+        account_sid: Optional[str] = kwargs.pop(
+            'username', getattr(settings, 'TWILIO_ACCOUNT_SID')
+        )
         if not account_sid and not self.fail_silently:
             raise ImproperlyConfigured(
                 "You're using the SMS backend "
@@ -36,7 +38,9 @@ class SmsBackend(BaseSmsBackend):
                 "setting 'TWILIO_ACCOUNT_SID' set."
             )
 
-        auth_token: Optional[str] = getattr(settings, 'TWILIO_AUTH_TOKEN')
+        auth_token: Optional[str] = kwargs.pop(
+            'password', getattr(settings, 'TWILIO_AUTH_TOKEN')
+        )
         if not auth_token and not self.fail_silently:
             raise ImproperlyConfigured(
                 "You're using the SMS backend "
@@ -46,7 +50,7 @@ class SmsBackend(BaseSmsBackend):
 
         self.client = None
         if HAS_TWILIO:
-            self.client = Client(account_sid, auth_token)
+            self.client = Client(account_sid, auth_token, **kwargs)
 
     def send_messages(self, messages: List[Message]) -> int:
         if not self.client:
