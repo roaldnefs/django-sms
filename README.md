@@ -23,6 +23,7 @@
         - [Defining a custom SMS backend](#defining-a-custom-sms-backend)
     - [Signals](#signals)
         - [sms.signals.post_send](#sms.signals.post_send)
+    - [Testing](#testing)
 - [Acknowledgement](#acknowledgement)
 
 ## Sending SMS
@@ -227,6 +228,33 @@ Sent after **send()** is called on a **Message** instance. Arguments sent with t
 
 - **sender**: The **Message** class.
 - **instance**: The actual **Message** instance being send.
+
+### Testing
+
+**django-sms** provides a couple of classes to make testing sms easier.  First,
+configure **TEST_RUNNER** in your settings:
+
+```python
+TEST_RUNNER = "sms.test.runner.SMSTestRunner"
+```
+
+Then use the **SMSTestCaseMixin** in your test cases:
+
+```python
+import sms
+from django.test import TestCase
+from sms.test import SMSTestCaseMixin
+
+class MyTestCase(SMSTestCaseMixin, TestCase):
+
+    def test_something_that_sends_sms(self):
+        do_something_that_sends_sms()
+        self.assertEqual(len(sms.outbox), 1)
+        msg = sms.outbox[0]
+        self.assertEqual(msg.originator, '+12065550100')
+        self.assertEqual(msg.recipients, ['+441134960000'])
+        self.assertEqual(msg.body, 'Here is the message')
+```
 
 ## Acknowledgement
 This project is heavily based upon the **django.core.mail** module, with the modified work by [Roald Nefs](https://github.com/roaldnefs). The [Django license](https://raw.githubusercontent.com/roaldnefs/django-sms/main/LICENSE.django) is included with **django-sms**.
