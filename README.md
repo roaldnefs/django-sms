@@ -20,6 +20,7 @@
             - [Dummy backend](#dummy-backend)
             - [MessageBird backend](#messagebird-backend)
             - [Twilio backend](#twilio-backend)
+            - [SMSAPI.pl backend](#smsapipl-backend)
         - [Defining a custom SMS backend](#defining-a-custom-sms-backend)
     - [Signals](#signals)
         - [sms.signals.post_send](#sms.signals.post_send)
@@ -212,6 +213,20 @@ Make sure the Twilio Python SDK is installed by running the following command:
 
 ```console
 pip install "django-sms[twilio]"
+```
+
+#### SMSAPI.pl backend
+The [SMSAPI.pl](https://smsapi.pl/) backend sends text messages using the [SMSAPI.pl python API client](https://github.com/smsapi/smsapi-python-client). To specify this backend, put the following in your settings:
+
+```python
+SMS_BACKEND = 'sms.backends.smsapi.SmsBackend'
+SMSAPI_TOKEN = 'live_redacted-smsapi-access-token'
+```
+
+Make sure the SMSAPI Python API client is installed by running the following command:
+
+```console
+pip install "smsapi-client"
 ```
 
 ### Defining a custom SMS backend
